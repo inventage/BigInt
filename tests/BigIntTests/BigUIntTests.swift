@@ -306,8 +306,8 @@ class BigUIntTests: XCTestCase {
         check("42", .inline(42, 0), [42])
 
         check("1512366075204170947332355369683137040",
-              .inline(0xFEDCBA9876543210, 0x0123456789ABCDEF),
-              [0xFEDCBA9876543210, 0x0123456789ABCDEF])
+              .inline(UInt(UInt64(0xFEDCBA9876543210)), UInt(UInt64(0x0123456789ABCDEF))),
+              [UInt(UInt64(0xFEDCBA9876543210)), UInt(UInt64(0x0123456789ABCDEF))])
 
         // I have no idea how to exercise these in the wild
         check(BigUInt(unicodeScalarLiteral: UnicodeScalar(52)), .inline(4, 0), [4])
@@ -598,7 +598,7 @@ class BigUIntTests: XCTestCase {
     }
 
     func checkData(_ bytes: [UInt8], _ value: BigUInt, file: StaticString = #file, line: UInt = #line) {
-        XCTAssertEqual(BigUInt(Data(bytes: bytes)), value, file: file, line: line)
+        XCTAssertEqual(BigUInt(Data(bytes)), value, file: file, line: line)
         XCTAssertEqual(bytes.withUnsafeBytes { buffer in BigUInt(buffer) }, value, file: file, line: line)
     }
 
@@ -1317,11 +1317,11 @@ class BigUIntTests: XCTestCase {
     func testConversionFromString() {
         let sample = "123456789ABCDEFEDCBA98765432123456789ABCDEF"
 
-        XCTAssertEqual(BigUInt("1")!, 1)
+        XCTAssertEqual(BigUInt("1"), 1)
         XCTAssertEqual(BigUInt("123456789ABCDEF", radix: 16)!, 0x123456789ABCDEF)
         XCTAssertEqual(BigUInt("1000000000000000000000"), BigUInt("3635C9ADC5DEA00000", radix: 16))
         XCTAssertEqual(BigUInt("10000000000000000", radix: 16), BigUInt("18446744073709551616"))
-        XCTAssertEqual(BigUInt(sample, radix: 16)!, BigUInt("425693205796080237694414176550132631862392541400559")!)
+        XCTAssertEqual(BigUInt(sample, radix: 16)!, BigUInt("425693205796080237694414176550132631862392541400559"))
 
         XCTAssertNil(BigUInt("Not a number"))
         XCTAssertNil(BigUInt("X"))

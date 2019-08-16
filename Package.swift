@@ -15,11 +15,11 @@ let package = Package(
         .library(name: "BigInt", targets: ["BigInt"])
     ],
     dependencies: [
-        .package(url: "https://github.com/attaswift/SipHash", from: "1.2.1")
+        .package(url: "https://github.com/inventage/SipHash", from: "1.2.3")
     ],
     targets: [
         .target(name: "BigInt", dependencies: ["SipHash"], path: "sources"),
         .testTarget(name: "BigIntTests", dependencies: ["BigInt"], path: "tests")
     ],
-    swiftLanguageVersions: [4]
+    swiftLanguageVersions: [5]
 )

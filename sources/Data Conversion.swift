@@ -61,6 +61,8 @@ extension BigUInt {
             index -= 1
         }
         var word: Word = 0
+        
+
         data.enumerateBytes { p, byteIndex, stop in
             for byte in p {
                 word <<= 8

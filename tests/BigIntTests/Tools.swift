@@ -24,8 +24,8 @@ struct PseudoRandomNumbers: Sequence, IteratorProtocol {
 
     mutating func next() -> Element? {
         // Constants are from Knuth's MMIX and Numerical Recipes, respectively
-        let a: Element = (Element.bitWidth == 8 ? 6364136223846793005 : 1664525)
-        let c: Element = (Element.bitWidth == 8 ? 1442695040888963407 : 1013904223)
+        let a: Element = (Element.bitWidth == 8 ? UInt(UInt64(6364136223846793005)) : 1664525)
+        let c: Element = (Element.bitWidth == 8 ? UInt(UInt64(1442695040888963407)) : 1013904223)
         last = a &* last &+ c
         return last
     }
